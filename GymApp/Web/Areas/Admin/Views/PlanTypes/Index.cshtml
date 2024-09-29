@@ -1,0 +1,39 @@
+﻿@model Web.Areas.Admin.ViewModels.PlanTypeIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanTypes.FirstOrDefault().PlanTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanTypes.FirstOrDefault().PlanTypeDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.PlanTypes) {
+    <tr>
+        <td>
+            @item.PlanTypeName.Translate()
+        </td>
+        <td>
+            @item.PlanTypeDescription.Translate()
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.PlanTypeId}) |
+            @Html.ActionLink("Details", "Details", new {id = item.PlanTypeId}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.PlanTypeId})
+        </td>
+    </tr>
+}
+
+</table>

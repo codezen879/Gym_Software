@@ -1,0 +1,164 @@
+﻿@using System.Threading
+@{
+    var titleTag = (string.IsNullOrWhiteSpace(ViewBag.Title) ? "" : ViewBag.Title + " - ") + Resources.Common.ApplicationName;
+
+    // set up global js variable, to hold culture code
+    // it is later used for globalize, cldr and moment
+    var currentCultureCode = "root";
+    switch (Thread.CurrentThread.CurrentCulture.ToString())
+    {
+        case "et-EE":
+            currentCultureCode = "et";
+            break;
+        case "en-US":
+            currentCultureCode = "en";
+            break;
+        default:
+            currentCultureCode = Thread.CurrentThread.CurrentCulture.ToString();
+            break;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@titleTag</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/niceadmincss")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+        var currentCultureCode = '@currentCultureCode';
+    </script>
+    @RenderSection("headerscripts", required: false)
+</head>
+<body>
+    <section id="container" class="">
+        <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom">
+                    <i class="icon_menu"></i>
+                </div>
+            </div>
+
+            <!--logo start-->
+            <a href="@Url.Action("Index", "Home", new {area = ""})" class="logo"><span class="lite">@Resources.Common.ApplicationName</span></a>
+            <!--logo end-->
+
+            <div class="top-nav notification-row">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+                    <li class="active">
+                        <a class="" href="@Url.Action("Index", "Home", new {area = ""})">
+                            <i class="icon_house_alt"></i>
+                            <span>@Resources.Common.Home</span>
+                        </a>
+                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;" class="">
+                                <i class="icon_document_alt"></i>
+                                <span>@Resources.Common.Menu_Training</span>
+                                <span class="menu-arrow arrow_carrot-right"></span>
+                            </a>
+                            <ul class="sub">
+                                <li><a class="" href="@Url.Action("Index", "Plans", new {area = ""}, null)">@Resources.Common.Menu_All_Plans</a></li>
+                                <li><a class="" href="@Url.Action("Create", "Plans", new {area = ""}, null)">@Resources.Common.Menu_Create_A_Plan</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;" class="">
+                                <i class="icon_document_alt"></i>
+                                <span>Admin</span>
+                                <span class="menu-arrow arrow_carrot-right"></span>
+                            </a>
+                            <ul class="sub">
+                                <li><a class="" href="@Url.Action("Index", "ContactTypes", new {area = "Admin"}, null)">Contact types</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Workouts", new {area = "Admin"}, null)">Workouts</a></li>
+                                <li><a class="" href="@Url.Action("Index", "ExerciseInWorkouts", new {area = "Admin"}, null)">Exercises in workouts</a></li>
+                                <li><a class="" href="@Url.Action("Index", "ExerciseTypes", new {area = "Admin"}, null)">Exercise types</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Exercises", new {area = "Admin"}, null)">Exercises</a></li>
+                                <li><a class="" href="@Url.Action("Index", "WorkoutInPlans", new {area = "Admin"}, null)">Workouts in plans</a></li>
+                                <li><a class="" href="@Url.Action("Index", "PlanTypes", new {area = "Admin"}, null)">Plan types</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Plans", new {area = "Admin"}, null)">Plans</a></li>
+                                <li><a class="" href="@Url.Action("Index", "UserInPlans", new {area = "Admin"}, null)">Users in plans</a></li>
+                                <li><a class="" href="@Url.Action("Index", "UserRoleInPlans", new {area = "Admin"}, null)">User roles in plans</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Articles", new {area = "Admin"}, null)">Articles</a></li>
+                                <li><a class="" href="@Url.Action("Index", "MultiLangStrings", new {area = "Admin"}, null)">MultiLangStrings</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Translations", new {area = "Admin"}, null)">Translations</a></li>
+                                <li><a class="" href="@Url.Action("Index", "SystemLog", new {area = "Admin"}, null)">System logs</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;" class="">
+                                <i class="icon_document_alt"></i>
+                                <span>Identity</span>
+                                <span class="menu-arrow arrow_carrot-right"></span>
+                            </a>
+                            <ul class="sub">
+                                <li><a class="" href="@Url.Action("Index", "Users", new {area = "Admin"}, null)">Users</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Roles", new {area = "Admin"}, null)">Roles</a></li>
+                                <li><a class="" href="@Url.Action("Index", "UserRoles", new {area = "Admin"}, null)">Users in Roles</a></li>
+                                <li><a class="" href="@Url.Action("Index", "UserLogins", new {area = "Admin"}, null)">Logins</a></li>
+                                <li><a class="" href="@Url.Action("Index", "UserClaims", new {area = "Admin"}, null)">Claims</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <!--overview start-->
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>
+                        &copy; @DateTime.Now.Year - @Resources.Common.ApplicationName
+                        @if (Request.IsAuthenticated)
+            {
+                            <text>(<a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Common.LogOff</a>)</text>
+                        }
+                        else
+                        {
+                            <text>(@Html.ActionLink(@Resources.Common.Login, "Login", new { area = "", controller = "Account" }, htmlAttributes: new { id = "loginLink" }) | @Html.ActionLink(@Resources.Common.Register, "Register", new { area = "", controller = "Account" }, htmlAttributes: new { id = "registerLink" }))</text>
+                        }
+                        (Culture:<b>@Culture</b> UICulture:<b>@UICulture</b>)
+                    </p>
+                </footer>
+            </section>
+        </section>
+        <!--main content end-->
+
+    </section>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/cldr")
+    @Scripts.Render("~/bundles/globalize")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/tinymce/tinymce.min.js")
+    @Scripts.Render("~/bundles/app")
+
+    @Scripts.Render("~/bundles/niceadminjs")
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

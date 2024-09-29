@@ -1,0 +1,93 @@
+﻿@model Web.Areas.Admin.ViewModels.ExerciseInWorkoutIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Exercise.ExerciseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Workout.WorkoutName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Tracked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Sets)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Repetitions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().CreatedAtDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().ModifiedAtDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExerciseInWorkouts.FirstOrDefault().ModifiedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.ExerciseInWorkouts) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exercise.ExerciseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Workout.WorkoutName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tracked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sets)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Repetitions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAtDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedAtDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExerciseInWorkoutId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExerciseInWorkoutId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExerciseInWorkoutId })
+        </td>
+    </tr>
+}
+
+</table>

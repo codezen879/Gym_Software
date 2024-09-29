@@ -1,0 +1,63 @@
+﻿@model Web.Areas.Admin.ViewModels.WorkoutInPlanIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().Plan.PlanName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().Workout.WorkoutName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().CreatedAtDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().ModifiedAtDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkoutInPlans.FirstOrDefault().ModifiedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.WorkoutInPlans) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plan.PlanName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Workout.WorkoutName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAtDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedAtDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WorkoutInPlanId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WorkoutInPlanId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WorkoutInPlanId })
+        </td>
+    </tr>
+}
+
+</table>
